@@ -12,12 +12,16 @@ import yahoofinance.YahooFinance;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.UUID;
+import javax.persistence.*;
 
+@Entity
+@Table(name = this.name)
 public class FetchStock {
+
     @JsonIgnore
     private Stock stock;
 
-    private UUID uuid;
+
     private Double price;
     private Long fetchTime;
     private String name;
@@ -26,8 +30,8 @@ public class FetchStock {
     private String stockExchange;
 
 
-    public FetchStock() {
-
+    public FetchStock(String symbol) {
+        fetchBySymbol(symbol);
     }
 
     public void fetchAPPL() {
