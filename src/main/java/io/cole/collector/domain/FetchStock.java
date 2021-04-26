@@ -1,33 +1,29 @@
 package io.cole.collector.domain;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.persistence.*;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
+
 
 
 @Entity
-@Table(name = "stocks")
+@Document(collection = "stocks")
 public class FetchStock {
 
-    public static final Logger logger = LoggerFactory.getLogger(FetchStock.class);
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
+
     private Long fetchTime;
     private String name;
     private String symbol;
@@ -39,15 +35,16 @@ public class FetchStock {
         fetchBySymbol(symbol);
     }
 
-    public FetchStock() {
-
+    public FetchStock(String symbol, Long requestTime) {
+        fetchBySymbol(symbol);
+        fetchTime = requestTime;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -73,11 +70,12 @@ public class FetchStock {
             symbol = stock.getSymbol();
             currency = stock.getCurrency();
             stockExchange = stock.getStockExchange();
+            name = stock.getName();
 
         }
     }
 
-    @Column(name = "value", nullable = false)
+
     public Double getPrice() {
         return price;
     }
@@ -86,7 +84,7 @@ public class FetchStock {
         this.price = price;
     }
 
-    @Column(name = "fetch_time", nullable = false)
+
     public Long getFetchTime() {
         return fetchTime;
     }
@@ -95,7 +93,7 @@ public class FetchStock {
         this.fetchTime = fetchTime;
     }
 
-    @Column(name = "name", nullable = true)
+
     public String getName() {
         return name;
     }
@@ -104,7 +102,7 @@ public class FetchStock {
         this.name = name;
     }
 
-    @Column(name = "symbol", nullable = false)
+
     public String getSymbol() {
         return symbol;
     }
@@ -113,7 +111,7 @@ public class FetchStock {
         this.symbol = symbol;
     }
 
-    @Column(name = "currency", nullable = false)
+
     public String getCurrency() {
         return currency;
     }
@@ -122,7 +120,7 @@ public class FetchStock {
         this.currency = currency;
     }
 
-    @Column(name = "stock_exchange", nullable = false)
+
     public String getStockExchange() {
         return stockExchange;
     }
@@ -149,6 +147,25 @@ public class FetchStock {
 
         return stringBuilder.toString();
     }
+
+    @Override
+    public String toString() {
+
+        StringBuilder stringBuilder = new StringBuilder("Stock");
+        stringBuilder.append("[");
+        stringBuilder.append("id=" + id + ",");
+        stringBuilder.append("symbol=" + symbol + ",");
+        stringBuilder.append("fetch_time=" + fetchTime + ",");
+        stringBuilder.append("name=" + name + ",");
+        stringBuilder.append("price=" + price + ",");
+        stringBuilder.append("currency=" + currency + ",");
+        stringBuilder.append("stock_exchange=" + stockExchange);
+        stringBuilder.append("]");
+
+
+        return stringBuilder.toString();
+    }
+
 
 
 }
