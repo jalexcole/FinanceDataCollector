@@ -59,15 +59,15 @@ public class ScheduledTasks {
 
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
+
             } catch (IOException e) {
                 e.printStackTrace();
+
             }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-
 
         return stocks;
     }
