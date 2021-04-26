@@ -15,7 +15,7 @@ public class ScheduledTasks {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-    @Scheduled(fixedRate = 15 * 60 * 1000)
+    @Scheduled(fixedRate = 60 * 1000)
     public void reportCurrentTime() {
         // Place Scheduled tasks Here
         log.info("The time is now {}", dateFormat.format(new Date()));
@@ -29,6 +29,7 @@ public class ScheduledTasks {
         // Use a stream to access this json file and use each symbol
 
         // Process List
-        new FetchStock().fetchAPPL();
+        FetchStock fetchedStock = new FetchStock("DOGE-USD");
+        log.info(fetchedStock.toJSON());
     }
 }
