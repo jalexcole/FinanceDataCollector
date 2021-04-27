@@ -10,6 +10,6 @@ import java.util.List;
 
 
 @Repository
-public interface FetchStockRepository extends CrudRepository<FetchStock, String> {
-    List<FetchStock> findByNameContaining(String name);
+public interface FetchStockRepository extends MongoRepository<FetchStock, String> {
+    // List<FetchStock> findByNameContaining(String name);
 }
