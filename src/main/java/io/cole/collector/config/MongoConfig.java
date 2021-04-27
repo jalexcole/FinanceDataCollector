@@ -7,7 +7,6 @@ import com.mongodb.client.MongoClients;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 
-import java.util.Collection;
 
 @Configuration
 public class MongoConfig extends AbstractMongoClientConfiguration {
@@ -15,7 +14,7 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
     protected String getDatabaseName() {
         return "test";
     }
-
+    @Override
     public MongoClient mongoClient() {
         ConnectionString connectionString = new ConnectionString("mongodb://localhost:27017/test");
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
