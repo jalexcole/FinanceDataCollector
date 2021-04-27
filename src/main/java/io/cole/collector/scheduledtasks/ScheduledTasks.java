@@ -1,5 +1,5 @@
-﻿
 package io.cole.collector.scheduledtasks;
+
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

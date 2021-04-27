@@ -21,6 +21,8 @@ public class StockController {
         this.stockRepository = stockRepository;
     }
 
-
+//    public FetchStock addStock(FetchStock fetchStock) {
+//        return stockRepository.insert(fetchStock);
+//    }
 
 }
