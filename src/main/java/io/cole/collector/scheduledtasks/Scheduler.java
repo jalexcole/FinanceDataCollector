@@ -3,8 +3,8 @@ package io.cole.collector.scheduledtasks;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.cole.collector.domain.FetchStock;
-import io.cole.collector.repository.FetchStockRepository;
+import io.cole.collector.domain.LiveStock;
+import io.cole.collector.repository.LiveStockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -18,7 +18,7 @@ import java.util.List;
 public class Scheduler {
 
     @Autowired
-    private FetchStockRepository stockRepository;
+    private LiveStockRepository stockRepository;
 
     @Scheduled(fixedRate = 2 * 60 * 1000)
     public void reportCurrentTime() {
@@ -33,11 +33,11 @@ public class Scheduler {
         // Use a stream to access this json file and use each symbol
 
         // Process List
-        FetchStock fetchedStock = new FetchStock("DOGE-USD");
+        LiveStock fetchedStock = new LiveStock("DOGE-USD");
 
         List<String> stocks = fetchStocks();
         for (String stockSymbol: stocks) {
-            fetchedStock = new FetchStock(stockSymbol);
+            fetchedStock = new LiveStock(stockSymbol);
 
             stockRepository.insert(fetchedStock);
         }

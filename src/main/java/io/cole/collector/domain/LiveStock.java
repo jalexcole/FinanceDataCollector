@@ -15,7 +15,7 @@ import java.time.ZoneId;
 
 
 
-public class FetchStock {
+public class LiveStock {
 
     @Id
     private String id;
@@ -27,11 +27,11 @@ public class FetchStock {
     private String stockExchange;
     private Double price;
 
-    public FetchStock(String symbol) {
+    public LiveStock(String symbol) {
         fetchBySymbol(symbol);
     }
 
-    public FetchStock(String symbol, Long requestTime) {
+    public LiveStock(String symbol, Long requestTime) {
         fetchBySymbol(symbol);
         fetchTime = requestTime;
     }
