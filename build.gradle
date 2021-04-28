@@ -6,12 +6,12 @@ plugins {
 
 group = 'io.cole'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '14'
+sourceCompatibility = '11'
 
 configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
+//    compileOnly {
+//        extendsFrom annotationProcessor
+//    }
 }
 
 repositories {
@@ -20,15 +20,12 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-
-    compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
     implementation 'com.yahoofinance-api:YahooFinanceAPI:3.15.0'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 test {

@@ -10,13 +10,14 @@ import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 
 @Configuration
 public class MongoConfig extends AbstractMongoClientConfiguration {
+
     @Override
     protected String getDatabaseName() {
-        return "test";
+        return "stocks";
     }
-    @Override
+
     public MongoClient mongoClient() {
-        ConnectionString connectionString = new ConnectionString("mongodb://localhost:27017/test");
+        ConnectionString connectionString = new ConnectionString("mongodb://localhost:27017/stocks");
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
                 .build();

@@ -1,31 +1,28 @@
 package io.cole.collector.scheduledtasks;
 
-import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cole.collector.domain.FetchStock;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.cole.collector.repository.FetchStockRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
-@Component
-public class ScheduledTasks {
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
-    private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
+public class Scheduler {
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+    @Autowired
+    private FetchStockRepository stockRepository;
 
     @Scheduled(fixedRate = 2 * 60 * 1000)
     public void reportCurrentTime() {
         // Place Scheduled tasks Here
-        log.info("The time is now {}", dateFormat.format(new Date()));
         collectStocks();
     }
 
@@ -37,12 +34,12 @@ public class ScheduledTasks {
 
         // Process List
         FetchStock fetchedStock = new FetchStock("DOGE-USD");
-        log.info(fetchedStock.toJSON());
 
         List<String> stocks = fetchStocks();
         for (String stockSymbol: stocks) {
             fetchedStock = new FetchStock(stockSymbol);
-            log.info(fetchedStock.toJSON());
+
+            stockRepository.insert(fetchedStock);
         }
     }
 

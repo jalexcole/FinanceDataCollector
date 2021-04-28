@@ -1,15 +1,11 @@
 package io.cole.collector.domain;
 
-
-
-
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
 
-import javax.persistence.*;
+// import javax.persistence.Entity;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -17,8 +13,8 @@ import java.time.ZoneId;
 
 
 
-@Entity
-@Document(collection = "stocks")
+
+
 public class FetchStock {
 
     @Id
